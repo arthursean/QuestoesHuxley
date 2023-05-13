@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() 
+{
+    int numero[3][3];
+    int menor;
+    double media = 0.0;
+    int soma = 0;
+    int cont = 0;
+    for(int i = 0; i < 3; i+=1)
+    {
+        for(int j = 0; j < 3; j+=1)
+        {
+            scanf("%d", &numero[i][j]);
+            if(i == 0 && j == 0 || menor>numero[i][j])
+            {
+                menor = numero[i][j];
+            }
+            if(i != j)
+            {
+                soma = soma + numero[i][j];
+            }
+            if(numero[i][j]>0)
+            {
+                media = media + numero[i][j];
+                cont+=1;
+            }
+        }
+    }
+    int delta;
+    if(menor%2 == 0)
+    {
+        delta = 1;
+    }
+    else
+    {
+        delta = 0;
+    }
+    media = media/cont;
+    printf("%.2lf %d %d %d", media, menor, delta, soma);
+	return 0;
+}
