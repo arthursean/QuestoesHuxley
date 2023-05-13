@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() 
+{
+    int a, b;
+    scanf("%d%d", &a, &b);
+    int num;
+    int valor = a;
+    for(int i = 1; i<=b; i++)
+    {
+        if(i == valor)
+        {
+            printf("%d\n", i);
+            valor+=a;
+        }
+        else
+        {
+            printf("%d ", i);
+        }
+    }
+	return 0;
+}
