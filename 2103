@@ -2,48 +2,96 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-int ler(char fruta[], int i, int cont, int kg, int fim)
+
+void luta(int arrayL[][3], int arrayV[][3], int danoL, int danoV, int vidaL, int vidaV)
 {
-    if(cont == fim)
+    if (scanf("%d", &arrayL[0][0]) != EOF && vidaL >= 0 && vidaV >= 0)
     {
-        return kg;
-    }
-    else
-    {
-        if(fruta[cont] == ' ')
+        for (int i = 0; i < 3; i++)
         {
-            kg+=1;
-            return ler(fruta, i, cont+1, kg, fim);
+            for (int j = 0; j < 3; j++)
+            {
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
+                scanf("%d", &arrayL[i][j]);
+            }
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                scanf("%d", &arrayV[i][j]);
+            }
+        }
+        if (arrayL[0][1] == 1 || arrayL[1][0] == 1 || arrayL[1][2] == 1 || arrayL[2][1] || arrayL[0][0] == 1 && arrayL[1][1] == 1 && arrayL[2][2] == 1 && arrayL[0][2] == 1 && arrayL[2][0] == 1)
+        {
+            danoL = 0;
+        }
+        else if (arrayL[0][0] == 1 && arrayL[1][1] == 1 && arrayL[2][2] == 1 || arrayL[1][1] == 1 && arrayL[0][2] == 1 && arrayL[2][0] == 1)
+        {
+            danoL = 15;
         }
         else
         {
-           return ler(fruta, i, cont+1, kg, fim) ;
+            danoL = 0;
+        }
+
+        if (arrayV[0][1] == 1 || arrayV[1][0] == 1 || arrayV[1][2] == 1 || arrayV[2][1] == 1 || arrayV[0][0] == 1 && arrayV[1][1] == 1 && arrayV[2][2] == 1 && arrayV[0][2] == 1 && arrayV[2][0] == 1)
+        {
+            danoV = 0;
+        }
+        else if (arrayV[0][0] == 1 && arrayV[1][1] == 1 && arrayV[2][2] == 1 || arrayV[1][1] == 1 && arrayV[0][2] == 1 && arrayV[2][0] == 1)
+        {
+            danoV = 15;
+        }
+        else
+        {
+            danoV = 0;
+        }
+        vidaL -= danoV;
+        vidaV -= danoL;
+        luta(arrayL, arrayV, danoL = 0, danoV = 0, vidaL, vidaV);
+    }
+    else
+    {
+        if (vidaL > vidaV)
+        {
+            printf("Luke Skywalker venceu.");
+        }
+        else if (vidaV > vidaL)
+        {
+            printf("Darth Vader venceu.");
+        }
+        else
+        {
+            printf("Houve empate.");
         }
     }
-    
 }
-int main() 
+
+int main()
 {
-    int dias;
-    scanf("%d", &dias);
-    double preco[dias];
-    double precoT = 0.0;
-    double peso;
-    double pesoT = 0;
-    char fruta[255];
-    for(int i = 0; i<dias; i++)
+    int vidaL, vidaV;
+    scanf("%d%d", &vidaL, &vidaV);
+    if (vidaL == 0 && vidaV == 0)
     {
-        scanf("%lf", &preco[dias]);
-        precoT+=preco[dias];
-        char a;
-        scanf("%c", &a);
-        scanf("%[^\n]", fruta);
-        peso = ler(fruta, i, 0, 1, strlen(fruta));
-        printf("dia %d: %.0lf kg\n", i+1, peso);
-        pesoT+=peso;
+        printf("Houve empate.");
+        return 0;
     }
-    pesoT = pesoT/dias;
-    precoT = precoT/dias;
-    printf("%.2lf kg por dia\nR$ %.2lf por dia\n", pesoT, precoT);
+    if (vidaL > 0 && vidaV == 0)
+    {
+        printf("Luke Skywalker venceu.");
+        return 0;
+    }
+    if (vidaL == 0 && vidaV > 0)
+    {
+        printf("Darth Vader venceu.");
+        return 0;
+    }
+    int arrayL[3][3], arrayV[3][3];
+    int danoL = 0, danoV = 0;
+    luta(arrayL, arrayV, danoL, danoV, vidaL, vidaV);
     return 0;
 }
