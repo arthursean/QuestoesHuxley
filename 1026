@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+void imprimir(double creditado, double debitado, double saldo)
+{
+    printf("Creditos: R$ %.2lf\nDebitos: R$ %.2lf\nSaldo: R$ %.2lf", creditado, debitado, saldo);
+}
+void operacao(int escolha[], double dinheiro[], double saldo, int fim)
+{
+    double creditado = 0.0;
+    double debitado = 0.0;
+    for(int i = 0; i < fim; i++)
+    {
+        if(escolha[i] == 1)
+        {
+            creditado+=dinheiro[i];
+        }
+        else
+        {
+            debitado+=dinheiro[i];
+        }
+    }
+    saldo = creditado - debitado;
+    imprimir(creditado, debitado, saldo);
+    return;
+}
+int main() 
+{
+    int escolha[100];
+    double dinheiro[100];
+    double saldo = 0.0;
+    int cont = 0;
+    while(scanf("%d", &escolha[cont]) != -1)
+    {
+        scanf("%lf", &dinheiro[cont]);
+        cont+=1;
+    }
+    operacao(escolha, dinheiro, saldo, cont);
+	return 0;
+}
