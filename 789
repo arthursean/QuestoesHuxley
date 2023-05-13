@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+void operacao(int cont, int numero, int sudoku[][9])
+{
+    if(cont < numero)
+    {
+        int pontos = 1;
+        for(int i = 0; i < 9; i++)
+        {
+            for(int j = 0; j < 9; j++)
+            {
+                scanf("%d", &sudoku[i][j]);
+            }
+        }
+        printf("\n");
+        for(int j = 0; j < 9; j++)
+        {
+            for(int i = 0; i < 9; i++)
+            {
+                for(int x = i+1; x < 9; x++)
+                if(sudoku[i][j] == sudoku[x][j])
+                {
+                    pontos = 0;
+                    break;
+                }
+            }
+        }
+        for(int i = 0; i < 9; i++)
+        {
+            for(int j = 0; j < 9; j++)
+            {
+                for(int x = j+1; x < 9; x++)
+                if(sudoku[i][j] == sudoku[i][x])
+                {
+                    pontos = 0;
+                    break;
+                }
+            }
+        }
+        if(pontos == 1)
+        {
+            printf("Instancia %d\nSIM\n", cont+1);
+        }
+        else
+        {
+            printf("Instancia %d\nNAO\n", cont+1);
+        }
+        operacao(cont + 1, numero, sudoku);
+    }
+}
+int main() 
+{
+    int numero;
+    scanf("%d", &numero);
+    int sudoku[9][9];
+    operacao(0, numero, sudoku);
+	return 0;
+}
