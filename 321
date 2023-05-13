@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+int ler(char fruta[], int i, int cont, int kg, int fim)
+{
+    if(cont == fim)
+    {
+        return kg;
+    }
+    else
+    {
+        if(fruta[cont] == ' ')
+        {
+            kg+=1;
+            return ler(fruta, i, cont+1, kg, fim);
+        }
+        else
+        {
+           return ler(fruta, i, cont+1, kg, fim) ;
+        }
+    }
+    
+}
+int main() 
+{
+    int dias;
+    scanf("%d", &dias);
+    double preco[dias];
+    double precoT = 0.0;
+    double peso;
+    double pesoT = 0;
+    char fruta[255];
+    for(int i = 0; i<dias; i++)
+    {
+        scanf("%lf", &preco[dias]);
+        precoT+=preco[dias];
+        char a;
+        scanf("%c", &a);
+        scanf("%[^\n]", fruta);
+        peso = ler(fruta, i, 0, 1, strlen(fruta));
+        printf("dia %d: %.0lf kg\n", i+1, peso);
+        pesoT+=peso;
+    }
+    pesoT = pesoT/dias;
+    precoT = precoT/dias;
+    printf("%.2lf kg por dia\nR$ %.2lf por dia\n", pesoT, precoT);
+    return 0;
+}
