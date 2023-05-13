@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+typedef struct numero
+{
+    int casas;
+    int jogadores;
+    int rodadas;
+}NUMERO;
+
+int main() 
+{
+    NUMERO quantidade;
+    scanf("%d %d %d", &quantidade.casas, &quantidade.jogadores, &quantidade.rodadas);
+    int valorCasa[quantidade.casas], casaAtual[quantidade.jogadores], jogadorAtual[quantidade.jogadores];
+    for(int i = 0; i < quantidade.casas; i++)
+    {
+       scanf("%d", &valorCasa[i]);
+    }
+    
+    for(int i = 0; i < quantidade.rodadas; i++)
+    {
+        for(int j = 0; j < quantidade.jogadores; j++)
+        {
+            scanf("%d", &jogadorAtual[j]);
+            if(i == 0)
+            {
+                casaAtual[j] = jogadorAtual[j];
+            }
+            else
+            {
+                casaAtual[j]+=jogadorAtual[j];
+            }
+            if(casaAtual[j] < 0)
+            {
+                casaAtual[j] = casaAtual[j] + quantidade.casas;
+        
+            }
+            if(casaAtual[j] > quantidade.casas-1)
+            {
+                casaAtual[j] = casaAtual[j] % quantidade.casas;
+            }
+            casaAtual[j]+=valorCasa[casaAtual[j]];
+            if(casaAtual[j] < 0)
+            {
+                casaAtual[j] = casaAtual[j] + quantidade.casas;
+        
+            }
+            if(casaAtual[j] > quantidade.casas-1)
+            {
+                casaAtual[j] = casaAtual[j] % quantidade.casas;
+            }
+        }
+    }
+    for(int i = 0; i < quantidade.jogadores; i++)
+    {
+        printf("%d\n", casaAtual[i]);
+    }
+	return 0;
+}
